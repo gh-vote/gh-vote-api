@@ -1,7 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
 import {encodeState} from '../../lib/state'
 import {env} from '../../lib/env'
-import {cors} from './cors'
+import {cors} from '../../lib/cors'
 
 const GITHUB_OAUTH_AUTHORIZE_URL = 'https://github.com/login/oauth/authorize'
 

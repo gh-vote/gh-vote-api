@@ -1,15 +1,13 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
 import {env} from '../../lib/env'
 import {decodeState, encodeState} from '../../lib/state'
-import {cors} from './cors'
+import {cors} from '../../lib/cors'
 
 const GITHUB_OAUTH_ACCESS_TOKEN_URL = 'https://github.com/login/oauth/access_token'
 const TOKEN_VALIDITY_PERIOD = 1000 * 60 * 60 * 24 * 365
 
 export default async function authorized(req: NextApiRequest, res: NextApiResponse) {
     await cors(req, res)
-
-    console.log(req.query)
 
     const code = req.query.code as string
     const state = req.query.state as string
