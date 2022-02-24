@@ -12,6 +12,8 @@
     "@octokit/auth-app": "^3.6.1",
     "@octokit/rest": "^18.12.0",
     "@peculiar/webcrypto": "^1.2.3",
+    "@supabase/postgrest-js": "^0.36.0",
+    "@supabase/supabase-js": "^1.30.6",
     "cors": "^2.8.5",
     "next": "12.1.0",
     "react": "17.0.2",

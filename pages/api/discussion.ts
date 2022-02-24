@@ -1,9 +1,6 @@
 import {NextApiRequest, NextApiResponse} from 'next'
 import {cors} from '../../lib/cors'
-import {env} from '../../lib/env'
-import {Octokit} from '@octokit/rest'
-import {createAppAuth} from '@octokit/auth-app'
-import {installationId} from '../../lib/auth'
+import {authApp} from '../../lib/auth'
 
 // TODO: cache installationId/personalToken
 export default async function discussion(req: NextApiRequest, res: NextApiResponse) {
@@ -16,18 +13,7 @@ export default async function discussion(req: NextApiRequest, res: NextApiRespon
   }
 
   try {
-    let instId = await installationId(owner as string, repository as string)
-    if (!instId) {
-      res.status(400).send({message: `gh-vote is not installed in ${owner}/${repository}`})
-    }
-    const api = new Octokit({
-      authStrategy: createAppAuth,
-      auth: {
-        appId: env.appId,
-        privateKey: env.privateKey,
-        installationId: instId
-      }
-    })
+    const api = await authApp(owner as string, repository as string)
 
     const query = `
     query {
