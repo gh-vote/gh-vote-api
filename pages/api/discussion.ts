@@ -2,7 +2,6 @@ import {NextApiRequest, NextApiResponse} from 'next'
 import {cors} from '../../lib/cors'
 import {authApp} from '../../lib/auth'
 
-// TODO: cache installationId/personalToken
 export default async function discussion(req: NextApiRequest, res: NextApiResponse) {
   await cors(req, res)
 
