@@ -15,30 +15,30 @@ export default async function discussion(req: NextApiRequest, res: NextApiRespon
     const api = await authApp(owner as string, repository as string)
 
     const query = `
-    query {
-      repository(name: "${repository}", owner: "${owner}") {
-        discussions(first: 100) {
-          nodes {
-            id
-            title
-            body
-            category {
+      query($repository: String!, $owner: String!) {
+        repository(name: $repository, owner: $owner) {
+          discussions(first: 100) {
+            nodes {
               id
-              name
-            }
-            reactionGroups {
-              content
-              reactors {
-                totalCount
+              title
+              body
+              category {
+                id
+                name
+              }
+              reactionGroups {
+                content
+                reactors {
+                  totalCount
+                }
               }
             }
           }
         }
       }
-    }
-  `
+    `
 
-    const discussionData: any = await api.graphql(query)
+    const discussionData: any = await api.graphql(query, {repository, owner})
 
     const ds = discussionData.repository.discussions.nodes
     const filtered = ds.filter((d: any) => d.id === discussionId)[0]
